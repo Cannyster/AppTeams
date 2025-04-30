@@ -16,7 +16,7 @@ export const Container = styled(TouchableOpacity).attrs<FilterStyleProps>({})`
   margin-right: 12px;
 
   height: 38px;
-  width: 70px;
+  width: 75px;
 
   align-items: center;
   justify-content: center;
