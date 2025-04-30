@@ -6,6 +6,7 @@ import { Input } from "@/src/components/Input";
 import { Filter } from "@/src/components/Filter";
 import { FlatList } from "react-native";
 import { useState } from "react";
+import { PlayerCard } from "@/src/components/PlayerCard";
 
 export function Players() {
   const [team, setTeam] = useState("Time A");
@@ -30,7 +31,7 @@ export function Players() {
 
       <Form>
         <Input placeholder="Nome da Pessoa" autoCorrect={false} />
-        <ButtonIcon icon={"add"} type="PRIMARY" />
+        <ButtonIcon icon={"add"} type="PRIMARY" onPress={() => {}} />
       </Form>
 
       <HeaderList>
@@ -48,6 +49,18 @@ export function Players() {
         />
         <NumberOfPlayers>{players.length}</NumberOfPlayers>
       </HeaderList>
+
+      <FlatList
+        data={players}
+        keyExtractor={(item) => item}
+        renderItem={({ item }) => (
+          <PlayerCard
+            name={item.toString()}
+            key={item.toString()}
+            onRemove={() => {}}
+          />
+        )}
+      />
     </Container>
   );
 }
