@@ -9,6 +9,7 @@ import {
 import { Loading } from "@/src/components/Loading";
 import { StatusBar } from "react-native";
 import { NewGroup } from "@/src/screens/NewGroup";
+import { Players } from "@/src/screens/Players";
 
 export default function Index() {
   const [fontsLoaded] = useFonts({
@@ -26,7 +27,8 @@ export default function Index() {
         backgroundColor={theme.COLORS.GRAY_700}
       />
       {/* {fontsLoaded ? <Groups /> : <Loading />} */}
-      {fontsLoaded ? <NewGroup /> : <Loading />}
+      {/* {fontsLoaded ? <NewGroup /> : <Loading />} */}
+      {fontsLoaded ? <Players /> : <Loading />}
     </ThemeProvider>
   );
 }
