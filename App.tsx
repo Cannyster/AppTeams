@@ -1,15 +1,13 @@
-import { Groups } from "@/src/screens/groups";
 import { ThemeProvider } from "styled-components/native";
-import theme from "@/src/theme";
+import theme from "./src/theme";
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
-import { Loading } from "@/src/components/Loading";
+import { Loading } from "./src/components/Loading";
 import { StatusBar } from "react-native";
-import { NewGroup } from "@/src/screens/NewGroup";
-import { Players } from "@/src/screens/Players";
+import { Players } from "./src/screens/Players";
 
 export default function Index() {
   const [fontsLoaded] = useFonts({
