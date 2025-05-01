@@ -5,15 +5,16 @@ import {
   Roboto_400Regular,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
-import { Loading } from "./src/components/Loading";
+// import { Loading } from "./src/components/Loading";
 import { StatusBar } from "react-native";
-import { Players } from "./src/screens/Players";
+import { Routes } from "./src/routes";
 
 export default function Index() {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
   });
+
   if (!fontsLoaded) {
     return null;
   }
@@ -24,9 +25,8 @@ export default function Index() {
         barStyle="light-content"
         backgroundColor={theme.COLORS.GRAY_700}
       />
-      {/* {fontsLoaded ? <Groups /> : <Loading />} */}
-      {/* {fontsLoaded ? <NewGroup /> : <Loading />} */}
-      {fontsLoaded ? <Players /> : <Loading />}
+      {/* {fontsLoaded ? <Routes /> : <Loading />} */}
+      <Routes />
     </ThemeProvider>
   );
 }
