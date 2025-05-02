@@ -1,6 +1,6 @@
 import { Header } from "../../components/Header";
 import { Highlight } from "../../components/Highlight";
-import { Container, Title } from "./styles";
+import { Container } from "./styles";
 import { GroupCard } from "../../components/GroupCard";
 import { useState } from "react";
 import { FlatList } from "react-native";
