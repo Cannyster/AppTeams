@@ -6,14 +6,20 @@ import { useState } from "react";
 import { FlatList } from "react-native";
 import { ListEmpty } from "../../components/ListEmpty";
 import { Button } from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
-export function Groups() {
+export function Groups(props) {
+  const navigation = useNavigation();
   const [groups, setGroups] = useState<string[]>([
     "Galera do Futebol",
     "Amigos GFD",
     "Familia Braga",
     "Turma de React Native",
   ]);
+
+  function handleNewGroup() {
+    props.navigation.navigate("new");
+  }
 
   return (
     <Container>
@@ -32,10 +38,7 @@ export function Groups() {
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
       />
 
-      <Button
-        title="Criar Nova Turma"
-        onPress={() => console.log("Clicando no Botão")}
-      />
+      <Button title="Criar Nova Turma" onPress={handleNewGroup} />
     </Container>
   );
 }
