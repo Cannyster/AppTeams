@@ -8,7 +8,7 @@ import { ListEmpty } from "../../components/ListEmpty";
 import { Button } from "../../components/Button";
 import { useNavigation } from "@react-navigation/native";
 
-export function Groups(props) {
+export function Groups() {
   const navigation = useNavigation();
   const [groups, setGroups] = useState<string[]>([
     "Galera do Futebol",
@@ -18,7 +18,7 @@ export function Groups(props) {
   ]);
 
   function handleNewGroup() {
-    props.navigation.navigate("new");
+    navigation.navigate("new");
   }
 
   return (
