@@ -2,24 +2,38 @@ import { Header } from "../../components/Header";
 import { Highlight } from "../../components/Highlight";
 import { Container } from "./styles";
 import { GroupCard } from "../../components/GroupCard";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FlatList } from "react-native";
 import { ListEmpty } from "../../components/ListEmpty";
 import { Button } from "../../components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { groupsGetAll } from "../../storage/group/groupsGetAll";
 
 export function Groups() {
   const navigation = useNavigation();
-  const [groups, setGroups] = useState<string[]>([
-    "Galera do Futebol",
-    "Amigos GFD",
-    "Familia Braga",
-    "Turma de React Native",
-  ]);
+  const [groups, setGroups] = useState<string[]>([]);
 
   function handleNewGroup() {
     navigation.navigate("new");
   }
+
+  async function fetchGroups() {
+    try {
+      const data = await groupsGetAll();
+      setGroups(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Estratégia para atualizar a lista de equipe a cada vez que o usuário voltar para essa tela
+  //o useCallBack e usado para armazenar a referencia dos dados daquela função, isso evita
+  //renderizações desnecessárias do componente
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [])
+  );
 
   return (
     <Container>

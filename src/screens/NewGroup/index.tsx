@@ -5,12 +5,14 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { groupCreate } from "../../storage/group/groupCreate";
 
 export function NewGroup() {
   const [group, setGroup] = useState("");
   const navigation = useNavigation();
 
-  function handleNew() {
+  async function handleNew() {
+    await groupCreate(group);
     navigation.navigate("players", { group });
     // navigation.navigate("players", { group: group });
     // Forma explicita, a primeira e a implicita ja que o estado eo parâmetros tem o mesmo nome 'group'
