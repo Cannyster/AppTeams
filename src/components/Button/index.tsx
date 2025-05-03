@@ -6,9 +6,9 @@ type Props = TouchableOpacityProps & {
   type?: ButtonTypeStyleProps;
 };
 
-export function Button({ title, type = "PRIMARY", ...rest }: Props) {
+export function Button({ title, type = "PRIMARY", disabled, ...rest }: Props) {
   return (
-    <Container type={type} {...rest}>
+    <Container type={type} disabled={disabled} {...rest}>
       <Title>{title}</Title>
     </Container>
   );

@@ -6,16 +6,32 @@ import { Input } from "../../components/Input";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { groupCreate } from "../../storage/group/groupCreate";
+import { AppError } from "../../utils/AppError";
+import { Alert } from "react-native";
 
 export function NewGroup() {
   const [group, setGroup] = useState("");
   const navigation = useNavigation();
+  const disable = group.trim().length === 0;
 
   async function handleNew() {
-    await groupCreate(group);
-    navigation.navigate("players", { group });
-    // navigation.navigate("players", { group: group });
-    // Forma explicita, a primeira e a implicita ja que o estado eo parâmetros tem o mesmo nome 'group'
+    try {
+      if (group.length === 0) {
+        return Alert.alert("Novo Grupo", "Informa o nome da turma.");
+      }
+
+      await groupCreate(group);
+      navigation.navigate("players", { group });
+      // navigation.navigate("players", { group: group });
+      // Forma explicita, a primeira e a implicita ja que o estado eo parâmetros tem o mesmo nome 'group'
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert("NovoGrupo", error.message);
+      } else {
+        Alert.alert("NovoGrupo", "Não foi possivel criar um novo grupo");
+        console.log(error);
+      }
+    }
   }
 
   return (
@@ -32,7 +48,12 @@ export function NewGroup() {
           onChangeText={(text) => setGroup(text)}
           // onChangeText={setGroup} // Forma implicita, acima esa a forma explicita
         />
-        <Button title="Criar" style={{ marginTop: 20 }} onPress={handleNew} />
+        <Button
+          title="Criar"
+          style={{ marginTop: 20 }}
+          onPress={handleNew}
+          disabled={disable}
+        />
       </Content>
     </Container>
   );

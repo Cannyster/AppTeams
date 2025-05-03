@@ -5,6 +5,7 @@ export type ButtonTypeStyleProps = "PRIMARY" | "SECONDARY";
 
 type Props = {
   type: ButtonTypeStyleProps;
+  disabled: boolean;
 };
 
 export const Container = styled(TouchableOpacity)<Props>`
@@ -18,8 +19,12 @@ export const Container = styled(TouchableOpacity)<Props>`
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ theme, type }) =>
-    type === "PRIMARY" ? theme.COLORS.GREEN_700 : theme.COLORS.RED_DARK};
+  background-color: ${({ theme, type, disabled }) =>
+    disabled
+      ? theme.COLORS.GRAY_400
+      : type === "PRIMARY"
+      ? theme.COLORS.GREEN_700
+      : theme.COLORS.RED_DARK};
 `;
 
 export const Title = styled.Text`
