@@ -4,7 +4,7 @@ import { Highlight } from "../../components/Highlight";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import { Input } from "../../components/Input";
 import { Filter } from "../../components/Filter";
-import { Alert, FlatList } from "react-native";
+import { Alert, FlatList, TextInput } from "react-native";
 import { PlayerCard } from "../../components/PlayerCard";
 import { ListEmpty } from "../../components/ListEmpty";
 import { Button } from "../../components/Button";
@@ -12,7 +12,7 @@ import { AppError } from "../../utils/AppError";
 import { PlayerAddByGroup } from "../../storage/player/playerAddByGroup";
 import { playersGetByGroupAndTeam } from "../../storage/player/playerGetByGroupAndTeam";
 import { PlayerStorageDTO } from "../../storage/player/PlayerStorageDTO";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 
 type RouteParams = {
@@ -20,11 +20,12 @@ type RouteParams = {
 };
 
 export function Players() {
-  const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
   const [newPLayerName, setNewPlayerName] = useState("");
+  const [team, setTeam] = useState("Time A");
   const route = useRoute();
   const { group } = route.params as RouteParams;
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   async function fetchPlayersByTeam() {
     try {
@@ -54,6 +55,8 @@ export function Players() {
 
     try {
       await PlayerAddByGroup(newPLayer, group);
+      newPlayerNameInputRef.current?.blur(); // blure retira o foco do componente
+      // Keyboard.dismiss() // opção ao blur para fechar o teclado
       setNewPlayerName("");
     } catch (error) {
       if (error instanceof AppError) {
@@ -76,10 +79,13 @@ export function Players() {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           placeholder="Nome da Pessoa"
           autoCorrect={false}
           onChangeText={setNewPlayerName}
           value={newPLayerName}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
         <ButtonIcon icon={"add"} type="PRIMARY" onPress={handleAddPlayer} />
       </Form>
