@@ -17,16 +17,7 @@ type RouteParams = {
 
 export function Players() {
   const [team, setTeam] = useState("Time A");
-  const [players, setPlayers] = useState([
-    "rodrigo",
-    "diego",
-    "joao",
-    "mario",
-    "jhon",
-    "carlos",
-    "miguel",
-    "arthur",
-  ]);
+  const [players, setPlayers] = useState([]);
 
   const route = useRoute();
   const { group } = route.params as RouteParams;
@@ -61,11 +52,7 @@ export function Players() {
         data={players}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <PlayerCard
-            name={item.toString()}
-            key={item.toString()}
-            onRemove={() => {}}
-          />
+          <PlayerCard name={item} key={item} onRemove={() => {}} />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Não há pessoas nesse time" />

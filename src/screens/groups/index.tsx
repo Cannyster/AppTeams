@@ -35,6 +35,10 @@ export function Groups() {
     }, [])
   );
 
+  function handleOpenGroup(group: string) {
+    navigation.navigate("players", { group });
+  }
+
   return (
     <Container>
       <Header />
@@ -44,7 +48,7 @@ export function Groups() {
         data={groups}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <GroupCard title={item} onPress={() => console.log("clicando")} />
+          <GroupCard title={item} onPress={() => handleOpenGroup(item)} />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Que tal cadastrar a primeira turma ?" />
