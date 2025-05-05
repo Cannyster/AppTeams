@@ -1,11 +1,11 @@
-import { ThemeProvider } from "styled-components/native";
+import { ThemeProvider } from "styled-components";
 import theme from "./src/theme";
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
-// import { Loading } from "./src/components/Loading";
+import { Loading } from "./src/components/Loading";
 import { StatusBar } from "react-native";
 import { Routes } from "./src/routes";
 import React from "react";
@@ -26,8 +26,7 @@ export default function Index() {
         barStyle="light-content"
         backgroundColor={theme.COLORS.GRAY_600}
       />
-      {/* {fontsLoaded ? <Routes /> : <Loading />} */}
-      <Routes />
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   );
 }
